@@ -8,11 +8,18 @@ cam = mlab.points3d(0.0, 0.0, 0.0)
 
 # Object parameters
 # Mirror
-pos_m = np.array([0.0, 0.0, 5.0])
-size_m = np.array([5.0, 5.0, 0.1])
-rot_m = np.array([0.0, 45.0, 0.0])
-colour_m = np.array([1.0, 0.0, 0.0])
-opacity_m = 1.0
+pos_m1 = np.array([0.0, 1.0, 5.0])
+size_m1 = np.array([5.0, 0.1, 5.0])
+rot_m1 = np.array([20.0, 0.0, 0.0])
+colour_m1 = np.array([1.0, 0.0, 0.0])
+opacity_m1 = 1.0
+
+# Mirror
+pos_m2 = np.array([0.0, -1.0, 5.0])
+size_m2 = np.array([5.0, 0.1, 5.0])
+rot_m2 = np.array([0.0, 0.0, 20.0])
+colour_m2 = np.array([0.6, 0.6, 0.0])
+opacity_m2 = 1.0
 
 # Glass
 pos_g = np.array([-10.0, 0.0, 2.5])
@@ -28,11 +35,11 @@ rot_p = np.array([0.0, 90.0, 0.0])
 colour_p = np.array([0.0, 0.0, 1.0])
 opacity_p = 1.0
 
-pos = [pos_m, pos_g, pos_p]
-size = [size_m, size_g, size_p]
-rot = [rot_m, rot_g, rot_p]
-colour = [colour_m, colour_g, colour_p]
-opacity = [opacity_m, opacity_g, opacity_p]
+pos = [pos_m1, pos_m2, pos_g, pos_p]
+size = [size_m1, size_m2, size_g, size_p]
+rot = [rot_m1, rot_m2, rot_g, rot_p]
+colour = [colour_m1, colour_m2, colour_g, colour_p]
+opacity = [opacity_m1, opacity_m2, opacity_g, opacity_p]
 
 # Object creation
 cube = np.array([
