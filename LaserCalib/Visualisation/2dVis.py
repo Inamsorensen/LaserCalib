@@ -41,6 +41,17 @@ rot = [rot_m1, rot_m2, rot_g, rot_p]
 colour = [colour_m1, colour_m2, colour_g, colour_p]
 opacity = [opacity_m1, opacity_m2, opacity_g, opacity_p]
 
+# Laser points
+point_m1 = np.array([0.0, 1.0, 5.0])
+point_m2 = np.array([0.0, -1.0, 5.0])
+point_g_in = np.array([pos_g[0] - (size_g[2] / 2.0), 0.0, 2.5])
+point_g_out = np.array([pos_g[0] + (size_g[2] / 2.0), 0.0, 2.5])
+point_p = np.array([-20.0, 0.0, 2.5])
+
+x_laser = [0.0, point_m1[0], point_m2[0], point_g_in[0], point_g_out[0], point_p[0]]
+y_laser = [0.0, point_m1[1], point_m2[1], point_g_in[1], point_g_out[1], point_p[1]]
+z_laser = [0.0, point_m1[2], point_m2[2], point_g_in[2], point_g_out[2], point_p[2]]
+
 # Object creation
 cube = np.array([
     [-0.5, -0.5, -0.5, 1.0],
@@ -113,5 +124,8 @@ for i in range(0, len(pos)):
             triangles,
             color=tuple(colour[i].reshape(1, -1)[0]),
             opacity=opacity[i])
+
+
+laserline = mlab.plot3d(x_laser, y_laser, z_laser, color=(0.0, 1.0, 0.0), tube_radius=0.025)
 
 mlab.show()
