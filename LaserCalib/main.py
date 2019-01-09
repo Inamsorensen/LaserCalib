@@ -20,7 +20,6 @@ if __name__ == '__main__':
     calib = calibrate.Calibration(calibData)
 
     calib.setVoltGrid(-1.0, 1.0, 3, -1.0, 1.0, 3)
-    # calib.estimateWorldPoints()
     volt = np.array([0.0, 0.0])
     print('volt', volt)
     print('planeRot', img1.planeRotation)

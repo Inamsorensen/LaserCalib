@@ -60,17 +60,18 @@ class Calibration():
 
     def voltToWorld(self, volts, planeRotation, planeTranslation):
 
+        # Calculate mirror angles
         alpha = self.voltToAngle_X * volts[0] + self.alpha_0
         beta = self.voltToAngle_Y * volts[1] + self.beta_0
 
         print('alpha', alpha)
         print('beta', beta)
 
+        # Calculate plane normals
         norm_X = np.array([
             -np.sin(alpha),
             np.cos(alpha) * np.cos(self.gamma),
             np.cos(alpha) * np.sin(self.gamma)])
-
         norm_X = normalize(norm_X)
 
         print('norm_X', norm_X)
@@ -89,14 +90,21 @@ class Calibration():
 
         print('norm_plane', norm_plane)
 
-        origin_laser = np.array([0.0, 0.0, 0.0])
+        # Set up known points in galvo reference frame
+        origin_galvo = np.array([0.0, 0.0, 0.0])
         point_Y_0 = np.array([0.0, self.r, 0.0])
         point_plane_0 = planeTranslation
 
         print('rayOrigin', self.rayOrigin)
         print('rayDir_0', self.rayDir_0)
 
-        dist_0 = np.dot((origin_laser - self.rayOrigin), norm_X) / np.dot(self.rayDir_0, norm_X)
+        # Calculate intersection of ray from laser to mirror X
+        try:
+            with np.errstate(all='raise'):
+                dist_0 = np.dot((origin_galvo - self.rayOrigin), norm_X) / np.dot(self.rayDir_0, norm_X)
+        except FloatingPointError:
+            print('Ray from laser to mirror X is parallel to mirror X. The ray will therefore not reflect')
+            return None
         point_X = self.rayOrigin + dist_0 * self.rayDir_0
         rayDir_1 = self.rayDir_0 - 2.0 * np.dot(norm_X, self.rayDir_0) * norm_X
         rayDir_1 = normalize(rayDir_1)
@@ -105,16 +113,28 @@ class Calibration():
         print('point_X', point_X)
         print('rayDir_1', rayDir_1)
 
-        dist_1 = np.dot((point_Y_0 - point_X), norm_Y) / np.dot(rayDir_1, norm_Y)
+        # Calculate intersection of ray from mirror X to mirror Y
+        try:
+            with np.errstate(all='raise'):
+                dist_1 = np.dot((point_Y_0 - point_X), norm_Y) / np.dot(rayDir_1, norm_Y)
+        except FloatingPointError:
+            print('Ray from mirror X to mirror Y is parallel to mirror Y. The ray will therefore not reflect')
+            return None
         point_Y = point_X + dist_1 * rayDir_1
-        rayDir_2 = rayDir_1 -2.0 * np.dot(norm_Y, rayDir_1) * norm_Y
+        rayDir_2 = rayDir_1 - 2.0 * np.dot(norm_Y, rayDir_1) * norm_Y
         rayDir_2 = normalize(rayDir_2)
 
         print('dist_1', dist_1)
         print('point_Y', point_Y)
         print('rayDir_2', rayDir_2)
 
-        dist_2 = np.dot((point_plane_0 - point_Y), norm_plane) / np.dot(rayDir_2, norm_plane)
+        # Calculate intersection of ray from mirror Y to projection plane
+        try:
+            with np.errstate(all='raise'):
+                dist_2 = np.dot((point_plane_0 - point_Y), norm_plane) / np.dot(rayDir_2, norm_plane)
+        except FloatingPointError:
+            print('Ray from mirror Y to projection plane is parallel to the plane. The ray will therefore not reflect')
+            return None
         point_plane = point_Y + dist_2 * rayDir_2
 
         print('dist_2', dist_2)
