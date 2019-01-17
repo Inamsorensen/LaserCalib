@@ -1,0 +1,100 @@
+\documentclass[12pt,notitlepage]{article}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{{/Users/inam.sorensen/Stingray/WeeklyReports/}}
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcommand*{\myTitle}{\begingroup 
+\centering 
+
+{\LARGE \scshape Weekly Report - Week 2}% Title
+\vspace*{1\baselineskip}
+
+{\scshape
+Project: Mapping RW Coords to Galvo Voltage}\\[\baselineskip]
+
+(07.01.19 - 11.01.19)\\
+Ina M. Sørensen
+
+\vspace*{1\baselineskip}
+
+\endgroup}
+
+\begin{document}
+\pagestyle{empty} 
+\myTitle
+
+\section{Project Summary Status}
+
+\begin{tabularx}{\textwidth}{|l|c|X|}\hline
+Budget & \includegraphics[scale = 0.25]{HappySmiley} & \begin{tabular}{l@{}c@{}}\tabitem Hours this week: 27 \\ \tabitem Hours total: 62 \end{tabular} \\
+\hline
+Schedule & \includegraphics[scale = 0.25]{HappySmiley} & So far the schedule looks ok. Good progress on the task to estimate world coordinates from voltages. \\
+\hline
+Quality & \includegraphics[scale = 0.25]{NeitherSmiley} & \begin{tabular}{X@{}X@{}}\tabitem Found several articles that describe what we want to do\\ \tabitem Bad news: Spent a while trying to get OpenGL to work \end{tabular}\\ 
+\hline
+Risks and issues & \includegraphics[scale = 0.25]{NeitherSmiley} &  Continuing down the path of visualising with OpenGL could end up taking a lot of time. Might not be worthwhile if it will only be used for debugging purposes. Will have to make decision next week.\\
+\hline
+\end{tabularx}
+
+\subsection{Overall Project Plan}
+\begin{itemize}
+	\item System in 2D
+	\begin{itemize}
+		\item \colorbox{green}{Get to know task (1 week)}
+		\item \colorbox{green}{Create virtual system (2 weeks)}
+		\item \colorbox{yellow}{Obtain voltage values from world coordinates (2 weeks)}
+		\item Calibration of laser system (3 weeks)
+	\end{itemize}
+	\item System in 3D
+	\begin{itemize}
+		\item \colorbox{green}{Create virtual system (1 week)}
+		\item Obtain voltages from world coordinates (1 week)
+		\item Calibration of laser system (2 weeks)
+	\end{itemize}
+	\item Practical testing
+	\begin{itemize}
+		\item Calibrate system using real laser points (2 weeks)
+		\item Test precision of system (3 weeks)
+	\end{itemize}
+\end{itemize}
+
+\section{Key Accomplishments This Week}
+\subsection{Milestones Reached}
+No milestones reached this week. 
+
+\subsection{Tasks Performed}
+\begin{itemize}
+	\item Found paper describing how to calibrate galvanometers
+	\item Implemented functions estimating world coordinates from voltages
+	\item Started implementing visualisation app using PyQt and OpenGL
+\end{itemize}
+
+\section{Plan For Next Week}
+\subsection{Overall Goals}
+\begin{itemize}
+	\item Get OpenGL to work properly
+	\item If get OpenGL to work, start implementing visualisation app. If not, abandon this by the end of the week
+\end{itemize}
+
+\subsection{Daily Plan}
+\begin{tabularx}{\textwidth}{X|X|X|X|X}
+\textbf{Monday} & \textbf{Tuesday} & \textbf{Wednesday} & \textbf{Thursday} & \textbf{Friday} \\ \hline
+Work on getting OpenGL to work & Work through OpenGL tutorial & Start implementing visualisation app & Visualisation app & Visualisation app \\ 
+\end{tabularx}
+
+\section{Upcoming Deliverables}
+No deliverables for next week
+
+\section{Issues}
+It turned out to be quite difficult to get OpenGL to work on a Mac. 
+
+\section{Risks}
+Getting OpenGL to work might take a while. If can't get it to work, it will have been a waste of time. Will probably still need to implement a visualisation app and will then have to switch to Mayavi again or another library. This will again take time. 
+
+\section{Resources Planning}
+NB! Need private git repository
+
+
+
+\end{document}
